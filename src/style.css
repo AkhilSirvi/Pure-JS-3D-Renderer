@@ -1,10 +1,25 @@
-#container{
+/**
+ * ============================================
+ * Pure JS 3D Renderer - Stylesheet
+ * ============================================
+ * Minimal styling for the 3D renderer interface
+ * ============================================
+ */
+
+/**
+ * Main container
+ * Uses flexbox to center the canvas and controls horizontally
+ */
+#container {
     display: flex;
     justify-content: center;
 }
-#myCanvas{
-    
+
+/**
+ * Canvas element styling
+ * The canvas is where all 3D rendering takes place
+ */
+#myCanvas {
+    /* Border to visually define the rendering area */
     border: 1px solid black;
-    
-    
 }

@@ -1,34 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- <script src="3DRENDERLIBRARYJS.js"></script> -->
+    <!-- ============================================
+         Pure JavaScript 3D Renderer
+         A simple 3D cube renderer using HTML5 Canvas
+         ============================================ -->
+    
+    <!-- Character encoding and viewport settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Stylesheet for layout and styling -->
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    
+    <title>Pure JS 3D Renderer</title>
 </head>
 <body>
+    <!-- Main container - holds canvas and controls -->
     <div id="container">
+        
+        <!-- Canvas container -->
         <div>
+            <!-- HTML5 Canvas element where 3D cube is rendered -->
             <canvas id="myCanvas" width="1000%" height="700vh"></canvas>
-        </div>  
+        </div>
+        
+        <!-- Controls container -->
         <div>
+            <!-- Rotation controls (0-360 degrees) -->
             <div>
+                <!-- X-axis rotation slider (Pitch) -->
                 <input type="range" id="xid" max="360" min="0">
+                <!-- Y-axis rotation slider (Yaw) -->
                 <input type="range" id="yid" max="360" min="0">
+                <!-- Z-axis rotation slider (Roll) -->
                 <input type="range" id="zid" max="360" min="0">
             </div>
+            
+            <!-- Translation controls (position offset) -->
             <div>
+                <!-- X-axis translation slider -->
                 <input type="range" id="tx" max="1000" min="0">
+                <!-- Y-axis translation slider -->
                 <input type="range" id="ty" max="1000" min="0">
+                <!-- Z-axis translation slider (min=10 to prevent z=0) -->
                 <input type="range" id="tz" max="1000" min="10">
             </div>
+            
+            <!-- Focal length slider (perspective strength) -->
             <input type="range" id="fid" max="3000" min="0" value="3000">
         </div>
     </div>
     
-    
+    <!-- JavaScript files -->
+    <!-- Core 3D rendering engine -->
     <script src="3d_renderer main.js"></script>
+    <!-- Application initialization and UI handlers -->
     <script src="scripts.js"></script>
 </body>
 </html>
