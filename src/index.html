@@ -9,6 +9,16 @@
     <!-- Character encoding and viewport settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A pure JavaScript 3D renderer - no WebGL, no libraries">
+    <meta name="author" content="Akhil Sirvi">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Stylesheet for layout and styling -->
     <link rel="stylesheet" href="style.css">
@@ -16,41 +26,92 @@
     <title>Pure JS 3D Renderer</title>
 </head>
 <body>
+    <!-- Header -->
+    <header class="header">
+        <h1>🎮 Pure JS 3D Renderer</h1>
+        <p class="subtitle">No WebGL • No Libraries • Pure Mathematics</p>
+    </header>
+
     <!-- Main container - holds canvas and controls -->
-    <div id="container">
+    <main id="container">
         
         <!-- Canvas container -->
-        <div>
+        <section class="canvas-container">
             <!-- HTML5 Canvas element where 3D cube is rendered -->
-            <canvas id="myCanvas" width="1000%" height="700vh"></canvas>
-        </div>
+            <canvas id="myCanvas" width="500" height="400"></canvas>
+        </section>
         
-        <!-- Controls container -->
-        <div>
+        <!-- Controls panel -->
+        <aside class="controls-panel">
+            <h2>🎛️ Controls</h2>
+            
             <!-- Rotation controls (0-360 degrees) -->
-            <div>
-                <!-- X-axis rotation slider (Pitch) -->
-                <input type="range" id="xid" max="360" min="0">
-                <!-- Y-axis rotation slider (Yaw) -->
-                <input type="range" id="yid" max="360" min="0">
-                <!-- Z-axis rotation slider (Roll) -->
-                <input type="range" id="zid" max="360" min="0">
-            </div>
+            <fieldset class="control-group">
+                <legend>🔄 Rotation</legend>
+                
+                <div class="slider-row">
+                    <label for="xid">X (Pitch)</label>
+                    <input type="range" id="xid" max="360" min="0" value="0">
+                    <span class="value-display" id="xid-value">0°</span>
+                </div>
+                
+                <div class="slider-row">
+                    <label for="yid">Y (Yaw)</label>
+                    <input type="range" id="yid" max="360" min="0" value="0">
+                    <span class="value-display" id="yid-value">0°</span>
+                </div>
+                
+                <div class="slider-row">
+                    <label for="zid">Z (Roll)</label>
+                    <input type="range" id="zid" max="360" min="0" value="0">
+                    <span class="value-display" id="zid-value">0°</span>
+                </div>
+            </fieldset>
             
             <!-- Translation controls (position offset) -->
-            <div>
-                <!-- X-axis translation slider -->
-                <input type="range" id="tx" max="1000" min="0">
-                <!-- Y-axis translation slider -->
-                <input type="range" id="ty" max="1000" min="0">
-                <!-- Z-axis translation slider (min=10 to prevent z=0) -->
-                <input type="range" id="tz" max="1000" min="10">
-            </div>
+            <fieldset class="control-group">
+                <legend>📍 Position</legend>
+                
+                <div class="slider-row">
+                    <label for="tx">X Offset</label>
+                    <input type="range" id="tx" max="1000" min="0" value="250">
+                    <span class="value-display" id="tx-value">250</span>
+                </div>
+                
+                <div class="slider-row">
+                    <label for="ty">Y Offset</label>
+                    <input type="range" id="ty" max="1000" min="0" value="200">
+                    <span class="value-display" id="ty-value">200</span>
+                </div>
+                
+                <div class="slider-row">
+                    <label for="tz">Z Depth</label>
+                    <input type="range" id="tz" max="1000" min="10" value="200">
+                    <span class="value-display" id="tz-value">200</span>
+                </div>
+            </fieldset>
             
-            <!-- Focal length slider (perspective strength) -->
-            <input type="range" id="fid" max="3000" min="0" value="3000">
-        </div>
-    </div>
+            <!-- Perspective control -->
+            <fieldset class="control-group">
+                <legend>🔭 Perspective</legend>
+                
+                <div class="slider-row">
+                    <label for="fid">Focal Length</label>
+                    <input type="range" id="fid" max="3000" min="100" value="3000">
+                    <span class="value-display" id="fid-value">3000</span>
+                </div>
+            </fieldset>
+
+            <!-- Reset button -->
+            <button id="reset-btn" class="reset-btn">🔄 Reset All</button>
+        </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Made with ❤️ by <a href="https://github.com/AkhilSirvi" target="_blank">Akhil Sirvi</a></p>
+        <p class="footer-note">Built with pure JavaScript & HTML5 Canvas</p>
+    </footer>
     
     <!-- JavaScript files -->
     <!-- Core 3D rendering engine -->
