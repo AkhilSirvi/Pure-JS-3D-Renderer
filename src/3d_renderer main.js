@@ -249,12 +249,15 @@ function line_maker(startX, startY, endX, endY, clearCanvas = false) {
  * Higher values = less perspective distortion (more orthographic)
  * Lower values = more dramatic perspective effect
  */
-let focal_length = 10000;
+let focal_length = 3000;
 
-// Uncomment to enable dynamic focal length adjustment
-// function focallen(int) {
-//     focal_length = int;
-// }
+/**
+ * Sets the focal length for perspective projection
+ * @param {number} value - The new focal length value
+ */
+function setFocalLength(value) {
+    focal_length = value;
+}
 
 /**
  * Main rendering function - Projects 3D vertices to 2D and draws the cube

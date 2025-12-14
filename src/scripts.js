@@ -152,6 +152,9 @@ setInterval(() => {
     // Read focal length
     focalid = parseFloat(sliders.fid.value);
 
+    // Apply focal length for perspective control
+    setFocalLength(focalid);
+
     // Apply transformations and render
     Rotate(xrange, yrange, zrange, ktx, kty, ktz);
     main_renderer_function();
