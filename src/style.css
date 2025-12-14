@@ -1,0 +1,10 @@
+#container{
+    display: flex;
+    justify-content: center;
+}
+#myCanvas{
+    
+    border: 1px solid black;
+    
+    
+}

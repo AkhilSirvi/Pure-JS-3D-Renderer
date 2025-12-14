@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <script src="3DRENDERLIBRARYJS.js"></script> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <div>
+            <canvas id="myCanvas" width="1000%" height="700vh"></canvas>
+        </div>  
+        <div>
+            <div>
+                <input type="range" id="xid" max="360" min="0">
+                <input type="range" id="yid" max="360" min="0">
+                <input type="range" id="zid" max="360" min="0">
+            </div>
+            <div>
+                <input type="range" id="tx" max="1000" min="0">
+                <input type="range" id="ty" max="1000" min="0">
+                <input type="range" id="tz" max="1000" min="10">
+            </div>
+            <input type="range" id="fid" max="3000" min="0" value="3000">
+        </div>
+    </div>
+    
+    
+    <script src="3d_renderer main.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>
