@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
     <!-- ============================================
-         Pure JavaScript 3D Renderer
-         A simple 3D cube renderer using HTML5 Canvas
+         Pure JavaScript 3D Renderer - Enhanced Edition
+         Advanced 3D rendering with multiple shapes and effects
          ============================================ -->
     
-    <!-- Character encoding and viewport settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A pure JavaScript 3D renderer - no WebGL, no libraries">
+    <meta name="description" content="An advanced pure JavaScript 3D renderer with multiple shapes, depth coloring, and mathematical transformations">
     <meta name="author" content="Akhil Sirvi">
     
     <!-- Favicon -->
@@ -20,10 +19,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Stylesheet for layout and styling -->
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
     
-    <title>Pure JS 3D Renderer</title>
+    <title>Pure JS 3D Renderer - Enhanced</title>
 </head>
 <body>
     <!-- Header -->
@@ -32,33 +31,54 @@
         <p class="subtitle">No WebGL • No Libraries • Pure Mathematics</p>
     </header>
 
-    <!-- Main container - holds canvas and controls -->
+    <!-- Main container -->
     <main id="container">
         
         <!-- Canvas container -->
         <section class="canvas-container">
-            <!-- HTML5 Canvas element where 3D cube is rendered -->
+            <div class="canvas-header">
+                <span class="shape-name" id="shape-name">Cube</span>
+                <span class="fps-counter" id="fps-counter">60 FPS</span>
+            </div>
             <canvas id="myCanvas" width="500" height="400"></canvas>
+            <div class="canvas-footer">
+                <span>Press <kbd>Space</kbd> to pause • <kbd>R</kbd> to reset • <kbd>A</kbd> for auto-rotate</span>
+            </div>
         </section>
         
         <!-- Controls panel -->
         <aside class="controls-panel">
             <h2>🎛️ Controls</h2>
             
-            <!-- Rotation controls (0-360 degrees) -->
+            <!-- Shape selection -->
+            <fieldset class="control-group">
+                <legend>🔷 Shape</legend>
+                <div class="shape-buttons">
+                    <button class="shape-btn active" data-shape="cube">Cube</button>
+                    <button class="shape-btn" data-shape="tetrahedron">Tetrahedron</button>
+                    <button class="shape-btn" data-shape="octahedron">Octahedron</button>
+                    <button class="shape-btn" data-shape="pyramid">Pyramid</button>
+                    <button class="shape-btn" data-shape="prism">Prism</button>
+                    <button class="shape-btn" data-shape="dodecahedron">Dodecahedron</button>
+                    <button class="shape-btn" data-shape="sphere">Sphere</button>
+                    <button class="shape-btn" data-shape="torus">Torus</button>
+                </div>
+            </fieldset>
+            
+            <!-- Rotation controls -->
             <fieldset class="control-group">
                 <legend>🔄 Rotation</legend>
                 
                 <div class="slider-row">
                     <label for="xid">X (Pitch)</label>
-                    <input type="range" id="xid" max="360" min="0" value="0">
-                    <span class="value-display" id="xid-value">0°</span>
+                    <input type="range" id="xid" max="360" min="0" value="30">
+                    <span class="value-display" id="xid-value">30°</span>
                 </div>
                 
                 <div class="slider-row">
                     <label for="yid">Y (Yaw)</label>
-                    <input type="range" id="yid" max="360" min="0" value="0">
-                    <span class="value-display" id="yid-value">0°</span>
+                    <input type="range" id="yid" max="360" min="0" value="45">
+                    <span class="value-display" id="yid-value">45°</span>
                 </div>
                 
                 <div class="slider-row">
@@ -66,28 +86,61 @@
                     <input type="range" id="zid" max="360" min="0" value="0">
                     <span class="value-display" id="zid-value">0°</span>
                 </div>
+
+                <div class="checkbox-row">
+                    <input type="checkbox" id="auto-rotate">
+                    <label for="auto-rotate">Auto Rotate</label>
+                </div>
             </fieldset>
             
-            <!-- Translation controls (position offset) -->
+            <!-- Position controls -->
             <fieldset class="control-group">
                 <legend>📍 Position</legend>
                 
                 <div class="slider-row">
                     <label for="tx">X Offset</label>
-                    <input type="range" id="tx" max="1000" min="0" value="250">
+                    <input type="range" id="tx" max="500" min="0" value="250">
                     <span class="value-display" id="tx-value">250</span>
                 </div>
                 
                 <div class="slider-row">
                     <label for="ty">Y Offset</label>
-                    <input type="range" id="ty" max="1000" min="0" value="200">
+                    <input type="range" id="ty" max="400" min="0" value="200">
                     <span class="value-display" id="ty-value">200</span>
                 </div>
                 
                 <div class="slider-row">
                     <label for="tz">Z Depth</label>
-                    <input type="range" id="tz" max="1000" min="10" value="200">
-                    <span class="value-display" id="tz-value">200</span>
+                    <input type="range" id="tz" max="500" min="-200" value="0">
+                    <span class="value-display" id="tz-value">0</span>
+                </div>
+            </fieldset>
+
+            <!-- Scale controls -->
+            <fieldset class="control-group">
+                <legend>📐 Scale</legend>
+                
+                <div class="slider-row">
+                    <label for="sx">X Scale</label>
+                    <input type="range" id="sx" max="200" min="10" value="100">
+                    <span class="value-display" id="sx-value">1.0</span>
+                </div>
+                
+                <div class="slider-row">
+                    <label for="sy">Y Scale</label>
+                    <input type="range" id="sy" max="200" min="10" value="100">
+                    <span class="value-display" id="sy-value">1.0</span>
+                </div>
+                
+                <div class="slider-row">
+                    <label for="sz">Z Scale</label>
+                    <input type="range" id="sz" max="200" min="10" value="100">
+                    <span class="value-display" id="sz-value">1.0</span>
+                </div>
+
+                <div class="checkbox-row">
+                    <input type="checkbox" id="uniform-scale" checked>
+                    <label for="uniform-scale">Uniform Scale</label>
                 </div>
             </fieldset>
             
@@ -97,26 +150,76 @@
                 
                 <div class="slider-row">
                     <label for="fid">Focal Length</label>
-                    <input type="range" id="fid" max="3000" min="100" value="3000">
+                    <input type="range" id="fid" max="5000" min="200" value="3000">
                     <span class="value-display" id="fid-value">3000</span>
                 </div>
             </fieldset>
 
-            <!-- Reset button -->
-            <button id="reset-btn" class="reset-btn">🔄 Reset All</button>
+            <!-- Visual settings -->
+            <fieldset class="control-group">
+                <legend>🎨 Visual</legend>
+                
+                <div class="checkbox-row">
+                    <input type="checkbox" id="depth-coloring" checked>
+                    <label for="depth-coloring">Depth Coloring</label>
+                </div>
+
+                <div class="checkbox-row">
+                    <input type="checkbox" id="show-vertices">
+                    <label for="show-vertices">Show Vertices</label>
+                </div>
+
+                <div class="checkbox-row">
+                    <input type="checkbox" id="show-axes">
+                    <label for="show-axes">Show Axes</label>
+                </div>
+
+                <div class="checkbox-row">
+                    <input type="checkbox" id="show-grid">
+                    <label for="show-grid">Show Grid</label>
+                </div>
+
+                <div class="slider-row">
+                    <label for="line-width">Line Width</label>
+                    <input type="range" id="line-width" max="5" min="1" value="2">
+                    <span class="value-display" id="line-width-value">2</span>
+                </div>
+            </fieldset>
+
+            <!-- Buttons -->
+            <div class="button-group">
+                <button id="reset-btn" class="btn btn-primary">🔄 Reset All</button>
+                <button id="screenshot-btn" class="btn btn-secondary">📷 Screenshot</button>
+            </div>
         </aside>
     </main>
+
+    <!-- Info panel (collapsible) -->
+    <section class="info-panel">
+        <details>
+            <summary>📚 Math Behind the Renderer</summary>
+            <div class="info-content">
+                <h3>🧮 Key Mathematical Concepts</h3>
+                <ul>
+                    <li><strong>Vector3:</strong> 3D point representation with operations (add, subtract, dot product, cross product)</li>
+                    <li><strong>Matrix4:</strong> 4×4 transformation matrices for rotation, scaling, and translation</li>
+                    <li><strong>Perspective Projection:</strong> x' = (f·x)/(f+z), y' = (f·y)/(f+z)</li>
+                    <li><strong>Rotation Matrices:</strong> Euler angles for X (pitch), Y (yaw), Z (roll)</li>
+                    <li><strong>Golden Ratio:</strong> φ = (1+√5)/2 ≈ 1.618 (used in Dodecahedron)</li>
+                    <li><strong>Parametric Surfaces:</strong> Torus and Sphere generated mathematically</li>
+                </ul>
+            </div>
+        </details>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
         <p>Made with ❤️ by <a href="https://github.com/AkhilSirvi" target="_blank">Akhil Sirvi</a></p>
-        <p class="footer-note">Built with pure JavaScript & HTML5 Canvas</p>
+        <p class="footer-note">Built with pure JavaScript, HTML5 Canvas & Linear Algebra</p>
     </footer>
     
     <!-- JavaScript files -->
-    <!-- Core 3D rendering engine -->
     <script src="3d_renderer main.js"></script>
-    <!-- Application initialization and UI handlers -->
     <script src="scripts.js"></script>
 </body>
 </html>

@@ -1,29 +1,36 @@
 /**
  * ============================================
- * Pure JS 3D Renderer - Stylesheet
+ * Pure JS 3D Renderer - Enhanced Stylesheet
  * ============================================
- * Modern, responsive styling for the 3D renderer
+ * Modern, responsive styling with new controls
  * ============================================
  */
 
 /* ============================================
- * CSS Variables - Easy theming
+ * CSS Variables
  * ============================================ */
 :root {
     --bg-primary: #0f0f1a;
     --bg-secondary: #1a1a2e;
     --bg-card: #16213e;
+    --bg-input: #1e293b;
     --accent: #4f46e5;
     --accent-hover: #6366f1;
+    --accent-light: rgba(79, 70, 229, 0.15);
     --text-primary: #f1f5f9;
     --text-secondary: #94a3b8;
     --text-muted: #64748b;
     --border: #334155;
+    --border-light: #475569;
     --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
     --canvas-bg: #ffffff;
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
     --radius: 12px;
-    --transition: all 0.3s ease;
+    --radius-sm: 8px;
+    --transition: all 0.2s ease;
 }
 
 /* ============================================
@@ -42,25 +49,26 @@ html {
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    background-attachment: fixed;
     color: var(--text-primary);
     min-height: 100vh;
     line-height: 1.6;
 }
 
 /* ============================================
- * Header Styles
+ * Header
  * ============================================ */
 .header {
     text-align: center;
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
     background: var(--bg-secondary);
     border-bottom: 1px solid var(--border);
 }
 
 .header h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
     background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -69,21 +77,21 @@ body {
 
 .subtitle {
     color: var(--text-secondary);
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 400;
     letter-spacing: 0.5px;
 }
 
 /* ============================================
- * Main Container Layout
+ * Main Container
  * ============================================ */
 #container {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    gap: 2rem;
-    padding: 2rem;
-    max-width: 1200px;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    max-width: 1400px;
     margin: 0 auto;
     flex-wrap: wrap;
 }
@@ -93,17 +101,56 @@ body {
  * ============================================ */
 .canvas-container {
     background: var(--bg-card);
-    padding: 1.5rem;
+    padding: 1rem;
     border-radius: var(--radius);
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-lg);
     border: 1px solid var(--border);
+}
+
+.canvas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    padding: 0 0.25rem;
+}
+
+.shape-name {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 0.9rem;
+}
+
+.fps-counter {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Courier New', monospace;
+    background: var(--bg-input);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
 }
 
 #myCanvas {
     display: block;
     background: var(--canvas-bg);
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.canvas-footer {
+    margin-top: 0.75rem;
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+.canvas-footer kbd {
+    background: var(--bg-input);
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 0.65rem;
+    border: 1px solid var(--border);
 }
 
 /* ============================================
@@ -111,20 +158,35 @@ body {
  * ============================================ */
 .controls-panel {
     background: var(--bg-card);
-    padding: 1.5rem;
+    padding: 1.25rem;
     border-radius: var(--radius);
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-lg);
     border: 1px solid var(--border);
-    min-width: 280px;
-    max-width: 320px;
+    width: 320px;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+.controls-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.controls-panel::-webkit-scrollbar-track {
+    background: var(--bg-input);
+    border-radius: 3px;
+}
+
+.controls-panel::-webkit-scrollbar-thumb {
+    background: var(--border-light);
+    border-radius: 3px;
 }
 
 .controls-panel h2 {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
     color: var(--text-primary);
-    padding-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--border);
 }
 
@@ -133,17 +195,50 @@ body {
  * ============================================ */
 .control-group {
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 1rem;
+    border-radius: var(--radius-sm);
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
     background: rgba(255, 255, 255, 0.02);
 }
 
 .control-group legend {
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: var(--accent);
-    padding: 0 0.5rem;
+    padding: 0 0.4rem;
+}
+
+/* ============================================
+ * Shape Buttons
+ * ============================================ */
+.shape-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
+}
+
+.shape-btn {
+    padding: 0.4rem 0.5rem;
+    background: var(--bg-input);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.shape-btn:hover {
+    background: var(--border);
+    color: var(--text-primary);
+}
+
+.shape-btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
 }
 
 /* ============================================
@@ -151,10 +246,10 @@ body {
  * ============================================ */
 .slider-row {
     display: grid;
-    grid-template-columns: 80px 1fr 50px;
+    grid-template-columns: 70px 1fr 45px;
     align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .slider-row:last-child {
@@ -162,30 +257,55 @@ body {
 }
 
 .slider-row label {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     font-weight: 500;
     color: var(--text-secondary);
 }
 
 .value-display {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
     color: var(--accent);
-    background: rgba(79, 70, 229, 0.15);
-    padding: 0.25rem 0.5rem;
+    background: var(--accent-light);
+    padding: 0.2rem 0.4rem;
     border-radius: 4px;
     text-align: center;
     font-family: 'Courier New', monospace;
 }
 
 /* ============================================
- * Custom Range Slider Styling
+ * Checkbox Rows
+ * ============================================ */
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.checkbox-row input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+.checkbox-row label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+/* ============================================
+ * Range Slider Styling
  * ============================================ */
 input[type="range"] {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 6px;
+    height: 5px;
     background: var(--border);
     border-radius: 3px;
     outline: none;
@@ -194,85 +314,154 @@ input[type="range"] {
 }
 
 input[type="range"]:hover {
-    background: var(--text-muted);
+    background: var(--border-light);
 }
 
-/* Slider thumb - WebKit browsers */
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
     background: var(--accent);
     border-radius: 50%;
     cursor: pointer;
     transition: var(--transition);
-    box-shadow: 0 2px 6px rgba(79, 70, 229, 0.4);
+    box-shadow: 0 2px 4px rgba(79, 70, 229, 0.4);
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
     background: var(--accent-hover);
-    transform: scale(1.1);
+    transform: scale(1.15);
 }
 
-/* Slider thumb - Firefox */
 input[type="range"]::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
     background: var(--accent);
     border-radius: 50%;
     cursor: pointer;
     border: none;
     transition: var(--transition);
-    box-shadow: 0 2px 6px rgba(79, 70, 229, 0.4);
-}
-
-input[type="range"]::-moz-range-thumb:hover {
-    background: var(--accent-hover);
-    transform: scale(1.1);
+    box-shadow: 0 2px 4px rgba(79, 70, 229, 0.4);
 }
 
 /* ============================================
- * Reset Button
+ * Button Group
  * ============================================ */
-.reset-btn {
-    width: 100%;
-    padding: 0.75rem 1rem;
+.button-group {
+    display: flex;
+    gap: 0.5rem;
     margin-top: 0.5rem;
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
-    color: white;
+}
+
+.btn {
+    flex: 1;
+    padding: 0.6rem 0.75rem;
     border: none;
-    border-radius: 8px;
-    font-size: 0.9rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
     font-family: inherit;
 }
 
-.reset-btn:hover {
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    color: white;
+}
+
+.btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
 }
 
-.reset-btn:active {
+.btn-secondary {
+    background: var(--bg-input);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+    background: var(--border);
+    color: var(--text-primary);
+}
+
+.btn:active {
     transform: translateY(0);
 }
 
 /* ============================================
- * Footer Styles
+ * Info Panel
+ * ============================================ */
+.info-panel {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem 1.5rem;
+}
+
+.info-panel details {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.info-panel summary {
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+    transition: var(--transition);
+}
+
+.info-panel summary:hover {
+    background: var(--border);
+}
+
+.info-content {
+    padding: 1.25rem;
+}
+
+.info-content h3 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    color: var(--accent);
+}
+
+.info-content ul {
+    list-style: none;
+}
+
+.info-content li {
+    padding: 0.4rem 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+}
+
+.info-content li:last-child {
+    border-bottom: none;
+}
+
+.info-content strong {
+    color: var(--text-primary);
+}
+
+/* ============================================
+ * Footer
  * ============================================ */
 .footer {
     text-align: center;
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
     background: var(--bg-secondary);
     border-top: 1px solid var(--border);
-    margin-top: 2rem;
 }
 
 .footer p {
     color: var(--text-secondary);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 .footer a {
@@ -288,66 +477,66 @@ input[type="range"]::-moz-range-thumb:hover {
 }
 
 .footer-note {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
 }
 
 /* ============================================
  * Responsive Design
  * ============================================ */
-@media (max-width: 768px) {
-    .header h1 {
-        font-size: 1.75rem;
-    }
-    
-    .subtitle {
-        font-size: 0.875rem;
-    }
-    
+@media (max-width: 900px) {
     #container {
         flex-direction: column;
         align-items: center;
-        padding: 1rem;
-        gap: 1.5rem;
+    }
+    
+    .controls-panel {
+        width: 100%;
+        max-width: 500px;
+        max-height: none;
     }
     
     .canvas-container {
         width: 100%;
-        padding: 1rem;
+        max-width: 520px;
     }
     
     #myCanvas {
         width: 100%;
         height: auto;
     }
-    
-    .controls-panel {
-        width: 100%;
-        max-width: 100%;
-    }
-    
-    .slider-row {
-        grid-template-columns: 70px 1fr 45px;
-        gap: 0.5rem;
-    }
 }
 
-@media (max-width: 480px) {
-    .header {
-        padding: 1.5rem 1rem;
-    }
-    
+@media (max-width: 600px) {
     .header h1 {
         font-size: 1.5rem;
     }
     
-    .control-group {
-        padding: 0.75rem;
+    .subtitle {
+        font-size: 0.8rem;
     }
     
-    .slider-row label {
-        font-size: 0.75rem;
+    #container {
+        padding: 1rem;
+        gap: 1rem;
+    }
+    
+    .shape-buttons {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .shape-btn {
+        padding: 0.35rem 0.25rem;
+        font-size: 0.6rem;
+    }
+    
+    .slider-row {
+        grid-template-columns: 60px 1fr 40px;
+    }
+    
+    .canvas-footer {
+        display: none;
     }
 }
 
@@ -367,9 +556,33 @@ input[type="range"]::-moz-range-thumb:hover {
 
 .canvas-container,
 .controls-panel {
-    animation: fadeIn 0.5s ease-out;
+    animation: fadeIn 0.4s ease-out;
 }
 
 .controls-panel {
     animation-delay: 0.1s;
+}
+
+/* Smooth shape button transitions */
+.shape-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.shape-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+}
+
+.shape-btn:active::after {
+    width: 200%;
+    height: 200%;
 }
