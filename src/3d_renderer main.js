@@ -456,37 +456,37 @@ const Shapes = {
      * @returns {Object} { vertices: Vector3[], edges: Array }
      */
     dodecahedron(size = 60) {
-        const phi = (1 + Math.sqrt(5)) / 2;  // Golden ratio ≈ 1.618
-        const s = size;
-        const a = s;
-        const b = s / phi;
-        const c = s * (2 - phi);
-
-        const vertices = [
+        const phi = (1 + Math.sqrt(5)) / 2;
+        // Golden ratio ≈ 1.618 
+        const s = size; const a = s; 
+        const b = s / phi; 
+        const c = s * phi; 
+        const vertices = [ 
             // Cube vertices
             new Vector3(a, a, a), new Vector3(a, a, -a),
-            new Vector3(a, -a, a), new Vector3(a, -a, -a),
-            new Vector3(-a, a, a), new Vector3(-a, a, -a),
-            new Vector3(-a, -a, a), new Vector3(-a, -a, -a),
-            // Rectangle vertices (XY plane)
-            new Vector3(0, b + c, b), new Vector3(0, b + c, -b),
-            new Vector3(0, -(b + c), b), new Vector3(0, -(b + c), -b),
-            // Rectangle vertices (XZ plane)
-            new Vector3(b, 0, b + c), new Vector3(b, 0, -(b + c)),
-            new Vector3(-b, 0, b + c), new Vector3(-b, 0, -(b + c)),
-            // Rectangle vertices (YZ plane)
-            new Vector3(b + c, b, 0), new Vector3(b + c, -b, 0),
-            new Vector3(-(b + c), b, 0), new Vector3(-(b + c), -b, 0)
+            new Vector3(a, -a, a), new Vector3(a, -a, -a), 
+            new Vector3(-a, a, a), new Vector3(-a, a, -a), 
+            new Vector3(-a, -a, a), new Vector3(-a, -a, -a), 
+            // Rectangle vertices (XY plane) 
+            new Vector3(0, b, c), new Vector3(0, b, -c), 
+            new Vector3(0, -b, c), new Vector3(0, -b, -c), 
+            // Rectangle vertices (XZ plane) 
+            new Vector3(c, 0, b), new Vector3(c, 0, -b), 
+            new Vector3(-c, 0, b), new Vector3(-c, 0, -b), 
+            // Rectangle vertices (YZ plane) 
+            new Vector3(b, c, 0), new Vector3(b, -c, 0), 
+            new Vector3(-b, c, 0), new Vector3(-b, -c, 0) 
+        ]; 
+        
+        const edges = [ 
+            [0, 8], [0, 12], [0, 16], [1, 9], [1, 13], 
+            [1, 16], [2, 10], [2, 12], [2, 17], [3, 11], 
+            [3, 13], [3, 17], [4, 8], [4, 14], [4, 18], 
+            [5, 9], [5, 15], [5, 18], [6, 10], [6, 14], 
+            [6, 19], [7, 11], [7, 15], [7, 19], [11, 9], 
+            [10, 8], [15, 14], [13, 12], [16, 18], [17, 19] 
         ];
-
-        const edges = [
-            [0, 8], [0, 12], [0, 16], [1, 9], [1, 13], [1, 16],
-            [2, 10], [2, 12], [2, 17], [3, 11], [3, 13], [3, 17],
-            [4, 8], [4, 14], [4, 18], [5, 9], [5, 15], [5, 18],
-            [6, 10], [6, 14], [6, 19], [7, 11], [7, 15], [7, 19],
-            [8, 9], [10, 11], [12, 14], [13, 15], [16, 17], [18, 19]
-        ];
-
+        
         return { vertices, edges, faces: [], name: 'Dodecahedron' };
     },
 
